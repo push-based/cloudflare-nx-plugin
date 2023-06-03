@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "license": "MIT",
   "scripts": {
-    "ng": ""
+    "ng": "npx @angular/cli",
+    "dev:ssr": "ng run angular-demo-app:serve-ssr"
   },
   "private": true,
   "dependencies": {

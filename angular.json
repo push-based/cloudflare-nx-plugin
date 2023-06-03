@@ -9,8 +9,15 @@
     "angular-demo-app": {
       "projectType": "application",
       "root": "apps/angular-demo-app",
-      "sourceRoot": "apps/angular-demo-app/src",
       "architect": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "main": "apps/angular-demo-app/src/main.ts",
+            "tsConfig": "apps/angular-demo-app/tsconfig.app.json"
+          }
+        }
       }
     }
   }
