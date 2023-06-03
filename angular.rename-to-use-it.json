@@ -1,0 +1,67 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
+  "version": 1,
+  "newProjectRoot": "apps",
+  "projects": {
+    "angular-demo-app": {
+      "projectType": "application",
+      "root": "apps/angular-demo-app",
+      "architect": {
+        "build": {
+          "executor": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "main": "apps/angular-demo-app/src/main.ts",
+            "tsConfig": "apps/angular-demo-app/tsconfig.app.json",
+            "outputPath": "dist/angular-demo-app/browser"
+          }
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/angular-demo-app/server",
+            "main": "apps/angular-demo-app/server.ts",
+            "tsConfig": "apps/angular-demo-app/tsconfig.server.json"
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "configurations": {
+            "development": {
+              "browserTarget": "angular-demo-app:build:development",
+              "serverTarget": "angular-demo-app:server:development"
+            },
+            "production": {
+              "browserTarget": "angular-demo-app:build:production",
+              "serverTarget": "angular-demo-app:server:production"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "prerender": {
+          "builder": "@nguniversal/builders:prerender",
+          "options": {
+            "routes": [
+              "/"
+            ]
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "angular-demo-app:build:production",
+              "serverTarget": "angular-demo-app:server:production"
+            },
+            "development": {
+              "browserTarget": "angular-demo-app:build:development",
+              "serverTarget": "angular-demo-app:server:development"
+            }
+          },
+          "defaultConfiguration": "production"
+        }
+      }
+    }
+  }
+}

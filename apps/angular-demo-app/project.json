@@ -10,7 +10,7 @@
       "executor": "@angular-devkit/build-angular:browser",
       "outputs": ["{options.outputPath}"],
       "options": {
-        "outputPath": "dist/apps/angular-demo-app",
+        "outputPath": "dist/apps/angular-demo-app/browser",
         "index": "apps/angular-demo-app/src/index.html",
         "main": "apps/angular-demo-app/src/main.ts",
         "polyfills": ["zone.js"],
@@ -91,11 +91,76 @@
         }
       }
     },
-    "serve-static": {
+    "serve-static-client": {
       "executor": "@nx/web:file-server",
       "options": {
-        "buildTarget": "angular-demo-app:build"
+        "staticFilePath": "dist/apps/angular-demo-app/browser",
+        "buildTarget": "angular-demo-app:prerender"
       }
+    },
+    "serve-static-server": {
+      "executor": "@nx/web:file-server",
+      "options": {
+        "buildTarget": "angular-demo-app:build-browser"
+      }
+    },
+    "build-server": {
+      "executor": "@angular-devkit/build-angular:server",
+      "options": {
+        "outputPath": "dist/apps/angular-demo-app/server",
+        "main": "apps/angular-demo-app/server.ts",
+        "tsConfig": "apps/angular-demo-app/tsconfig.server.json"
+      },
+      "configurations": {
+        "production": {
+          "outputHashing": "media",
+          "sourceMap": true,
+          "namedChunks": true,
+          "extractLicenses": true,
+          "buildOptimizer": true
+        },
+        "development": {
+          "outputHashing": "none",
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve-ssr": {
+      "executor": "@nguniversal/builders:ssr-dev-server",
+      "configurations": {
+        "development": {
+          "browserTarget": "angular-demo-app:build:development",
+          "serverTarget": "angular-demo-app:build-server:development"
+        },
+        "production": {
+          "browserTarget": "angular-demo-app:build:production",
+          "serverTarget": "angular-demo-app:build-server:production"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "prerender": {
+      "outputs": ["dist/apps/angular-demo-app/browser"],
+      "executor": "@nguniversal/builders:prerender",
+      "options": {
+        "routes": [
+          "/",
+          "/#commands"
+        ]
+      },
+      "configurations": {
+        "production": {
+          "browserTarget": "angular-demo-app:build:production",
+          "serverTarget": "angular-demo-app:build-server:production"
+        },
+        "development": {
+          "browserTarget": "angular-demo-app:build:development",
+          "serverTarget": "angular-demo-app:build-server:development"
+        }
+      },
+      "defaultConfiguration": "production"
     }
   }
 }
