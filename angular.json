@@ -1,0 +1,17 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "cli": {
+    "analytics": false
+  },
+  "version": 1,
+  "newProjectRoot": "apps",
+  "projects": {
+    "angular-demo-app": {
+      "projectType": "application",
+      "root": "apps/angular-demo-app",
+      "sourceRoot": "apps/angular-demo-app/src",
+      "architect": {
+      }
+    }
+  }
+}
