@@ -2,6 +2,9 @@
   "name": "@cloudflare-nx-plugin/source",
   "version": "0.0.0",
   "license": "MIT",
+  "engines": {
+    "node": ">18.0.0"
+  },
   "scripts": {
     "ng": "npx @angular/cli",
     "dev:ssr": "ng run angular-demo-app:serve-ssr"
