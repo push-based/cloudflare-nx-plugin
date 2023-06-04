@@ -95,7 +95,7 @@
       "executor": "@nx/web:file-server",
       "options": {
         "buildTarget": "angular-demo-app:prerender",
-        "staticFilePath": "{workspaceRoot}/dist/{projectRoot}/browser"
+        "staticFilePath": "dist/apps/angular-demo-app/browser"
       }
     },
     "server": {
